@@ -1,7 +1,8 @@
 import time
-from flask import Flask,request
+from flask import Flask,request, jsonify
 from flask_cors import CORS , cross_origin
 import json
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -52,7 +53,6 @@ def product(id):
     if request.method == 'POST':
         req = json.loads(request.data.decode(encoding='UTF-8'))
         productRef.set(req)
-        productRef.update({"product_id":id})
         return productRef.get()
     if request.method == 'DELETE':
         productRef.set({})
@@ -70,5 +70,25 @@ def add_product():
     productRef.child(productKey).set(req)
     productRef.child(productKey).update({Constants.PRODUCT_ID:productKey})
     return productRef.child(productKey).get()
+
+@app.route('/user/product/<id>', methods = ['GET'])
+@cross_origin(support_credentials=True)
+def getProductByUser(id):
+    transactionRef = db.reference(Constants.USER_URL+id+Constants.TRANSACTION_URL)
+    # product()
+    products = {}
+    for key,value in transactionRef.get().items():
+        productDetails = json.loads(product(key).data)
+        valueCopy = value.copy()
+        valueCopy.update(productDetails)
+        products[key] = valueCopy
+
+    return products
+
+@app.route('/user/farm/<id>', methods = ['GET'])
+@cross_origin(support_credentials=True)
+def getFarmByUser(id):
+    farmRef = db.reference(Constants.USER_URL+id+Constants.FARM_URL)
+    return farmRef.get()
 
 app.run(port=5000, debug=True)
