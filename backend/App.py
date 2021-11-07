@@ -1,5 +1,5 @@
 import time
-from flask import Flask,request, jsonify
+from flask import Flask,request, jsonify,send_file, redirect, url_for
 from flask_cors import CORS , cross_origin
 import json
 
@@ -9,6 +9,7 @@ from firebase_admin import db
 import uuid
 import Constants
 import Config
+import pyqrcode
 
 
 # Fetch the service account key JSON file contents
@@ -90,5 +91,17 @@ def getProductByUser(id):
 def getFarmByUser(id):
     farmRef = db.reference(Constants.USER_URL+id+Constants.FARM_URL)
     return farmRef.get()
+
+@app.route('/qr/product/<id>', methods = ['GET'])
+@cross_origin(support_credentials=True)
+def createQRCode(id):
+    url = pyqrcode.create('http://localhost:5000/product/'+id)
+    dir = 'static'
+    filename = 'QR/product-'+id+'-qr.svg'
+    path = dir+'/'+filename 
+    url.svg(path, scale=4)
+    print(url.terminal(quiet_zone=1))
+    return redirect(url_for('static', filename=filename))
+    # return send_file(path, mimetype='image/gif')
 
 app.run(port=5000, debug=True)
