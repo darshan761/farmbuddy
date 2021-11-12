@@ -3,6 +3,7 @@ import { Route, Switch, HashRouter } from 'react-router-dom';
 import SignUpPage from './Components/SignUpPage/SignUpPage';
 import LoginPage from './Components/LoginPage/LoginPage';
 import Home from './Components/LandingPage/LandingPage';
+import MarketPlace from './Components/MarketPlace/MarketPlace';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route exact path="/login" component={LoginPage}/>
             <Route exact path="/signup" component={SignUpPage}/>
             <Route exact path="/home" component={Home}/>
+            <Route exact path="/marketplace" component={MarketPlace}/>
           </Switch>
       </HashRouter>
       {/* </header> */}
