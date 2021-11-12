@@ -4,6 +4,7 @@ import SignUpPage from './Components/SignUpPage/SignUpPage';
 import LoginPage from './Components/LoginPage/LoginPage';
 import Home from './Components/LandingPage/LandingPage';
 import MarketPlace from './Components/MarketPlace/MarketPlace';
+import ProductDetailPage from './Components/AdminPage/ProductDetailPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route exact path="/signup" component={SignUpPage}/>
             <Route exact path="/home" component={Home}/>
             <Route exact path="/marketplace" component={MarketPlace}/>
+            <Route exact path="/product/:id" component={ProductDetailPage}/>
           </Switch>
       </HashRouter>
       {/* </header> */}
