@@ -95,7 +95,7 @@ def getFarmByUser(id):
 @app.route('/qr/product/<id>', methods = ['GET'])
 @cross_origin(support_credentials=True)
 def createQRCode(id):
-    url = pyqrcode.create('http://localhost:5000/product/'+id)
+    url = pyqrcode.create(id)
     dir = 'static'
     filename = 'QR/product-'+id+'-qr.svg'
     path = dir+'/'+filename 

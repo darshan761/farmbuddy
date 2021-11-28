@@ -13,7 +13,7 @@ const sections = [
   { title: 'Home', url: '#/home' },
   { title: 'Market Place', url: '#/marketplace' },
   { title: 'Track my Product', url: '#/trackproduct' },
-  { title: 'Bayer Admin', url: '#/admin' },
+  { title: 'Bayer Admin', url: '#/product/5a8ddbbc' },
   { title: 'Analytics', url: '#/analytics' },
 ];
 
